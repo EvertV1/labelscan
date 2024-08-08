@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import api_client_online as api_client
+import api_client
 import welcome_page
 
 
