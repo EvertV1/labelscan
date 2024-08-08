@@ -25,7 +25,7 @@ def Welcome_page():
                 time.sleep(2)
                 # Set the session state to move to the next page
                 st.session_state.accepted_to_database = True
-                st.experimental_rerun()  # Refresh the app to navigate to the next page
+                st.rerun()  # Refresh the app to navigate to the next page
             else:
                 st.write("Sorry, it appears that you do not currently have access to this application. "
                          "Please contact your manager to obtain the necessary permissions.")
