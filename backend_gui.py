@@ -63,7 +63,7 @@ def app():
                 response = api_client.remove_user_from_database(user_to_remove)
                 if response:
                     st.success(response.get("message", "User removed successfully"))
-                st.experimental_rerun()
+                st.rerun()
 
         # Add section to send WhatsApp message
         st.subheader("Send WhatsApp Template")
@@ -89,7 +89,7 @@ def app():
 
         # Add a button to manually check for new data
         if st.button('Check for New Data'):
-            st.experimental_rerun()
+            st.rerun()
 
         if st.session_state.selected_dataframe == options[1]:
             # Fetch product data from FastAPI and set it in a pandas dataframe
