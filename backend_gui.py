@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import api_client
+import api_client as api_client
 import welcome_page
 
 
@@ -31,6 +31,7 @@ def app():
 
         # Add new user to the Users DataFrame
         st.subheader("Add New User")
+        st.write("When there is a new user added, they will receive an invitation on whatsapp to make use of the demo application.")
 
         with st.form(key='user_form'):
             user_name = st.text_input("User Name")
@@ -49,6 +50,9 @@ def app():
 
         # Remove existing user from the Users DataFrame
         st.subheader("Remove Existing User")
+        st.write("When a user is removed from the database, they can not make use of the application anymore. Users that have"
+                 " declined the terms and conditions will first need to be removed from the database and then again be added to"
+                 " the database to receive another invitation on whatsapp. ")
 
         # Fetch user data from FastAPI to get the list of users
         user_list = api_client.users_data_to_select_removal()
@@ -63,24 +67,7 @@ def app():
                 response = api_client.remove_user_from_database(user_to_remove)
                 if response:
                     st.success(response.get("message", "User removed successfully"))
-                st.rerun()
-
-        # Add section to send WhatsApp message
-        st.subheader("Send WhatsApp Template")
-
-        with st.form(key='whatsapp_form'):
-            user_to_message = st.selectbox("Select User to Message", user_list)
-            send_button = st.form_submit_button(label='Send Message')
-
-            # Send WhatsApp message
-            if send_button:
-                if not user_to_message:
-                    st.error("Please select a user")
-                else:
-                    # Send WhatsApp message to the user
-                    response = api_client.send_whatsapp_message(user_to_message)
-                    if response:
-                        st.success(response.get("message", "WhatsApp message sent successfully"))
+                st.experimental_rerun()
 
         st.subheader("Display of dataframe")
         # Options of different dataframes to show
@@ -89,7 +76,7 @@ def app():
 
         # Add a button to manually check for new data
         if st.button('Check for New Data'):
-            st.rerun()
+            st.experimental_rerun()
 
         if st.session_state.selected_dataframe == options[1]:
             # Fetch product data from FastAPI and set it in a pandas dataframe
