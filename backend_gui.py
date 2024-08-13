@@ -76,7 +76,7 @@ def app():
 
         # Add a button to manually check for new data
         if st.button('Check for New Data'):
-            strerun()
+            st.rerun()
 
         if st.session_state.selected_dataframe == options[1]:
             # Fetch product data from FastAPI and set it in a pandas dataframe
